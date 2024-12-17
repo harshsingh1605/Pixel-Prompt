@@ -11,7 +11,7 @@ const AppContextProvider = (props) => {
     const [ token, setToken ] = useState(localStorage.getItem('token'));
 
     const [credit, setCredit] = useState(0);
-    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const backendUrl = "https://pixel-prompt-backend.onrender.com";
 
 
 
