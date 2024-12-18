@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { assets } from '../assets/assets';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 import { AppContext } from '../context/AppContext';
 
 const Result = () => {
@@ -9,32 +9,29 @@ const Result = () => {
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState('');
 
-  const {generateImage} = useContext(AppContext);
+  const { generateImage } = useContext(AppContext);
 
   const onSubmitHandler = async (e) => {
+
+
+    // console.log('Generated Image URL:', generatedImage);
+
+
     e.preventDefault();
     setLoading(true);
 
-    if (input){
-      const image = await generateImage(input);
-      if(image){
-        setImage(image);
-        setIsImageLoaded(true);
-        setLoading(false);
-        
+    if (input) {
+      try {
+        const generatedImage = await generateImage(input); // Fetch generated image
+        if (generatedImage) {
+          setImage(generatedImage);
+          setIsImageLoaded(true);
+        }
+      } catch (error) {
+        console.error('Error generating image:', error);
       }
-
     }
-
-
-
-
-    // Simulated backend call (replace with actual logic)
-    setTimeout(() => {
-      setImage(assets.sample_img_2); // Replace with the generated image from your backend
-      setIsImageLoaded(true);
-      setLoading(false);
-    }, 3000);
+    setLoading(false);
   };
 
   return (
@@ -44,13 +41,14 @@ const Result = () => {
         Generate creative visuals by describing your ideas. Upload your imagination and let AI bring it to life!
       </p>
 
-
-      <motion.form 
-      initial={{ opacity: 0.2, y: 100 }}
-      transition={{ duration: 1 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      onSubmit={onSubmitHandler} className="flex flex-col items-center w-full max-w-lg">
+      <motion.form
+        initial={{ opacity: 0.2, y: 100 }}
+        transition={{ duration: 1 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        onSubmit={onSubmitHandler}
+        className="flex flex-col items-center w-full max-w-lg"
+      >
         <div className="relative flex flex-col items-center">
           <div className="relative">
             <img
